@@ -4,6 +4,7 @@
 // Optional: shuffling and i think the second option was a game
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 // Suit constants
 enum Suits {
@@ -13,22 +14,28 @@ enum Suits {
     HEARTS
 }
 
+// Rank constants
+enum Ranks {
+    ACE, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE,
+    JACK, QUEEN, KING
+}
+
 // Class to create each card.
 class Card {
     
     Suits suit;
-    int value;
+    Ranks rank;
     
     // Constructor.
-    public Card(Suits suit, int value) {
+    public Card(Suits suit, Ranks rank) {
         this.suit = suit;
-        this.value = value;
+        this.rank = rank;
     }
 
     // toString method for output purposes.
     @Override
     public String toString() {
-        return value + " of " + suit;
+        return rank + " of " + suit;
     }
 }
 
@@ -39,12 +46,12 @@ public class Deck {
     ArrayList<Card> cards;
 
     public Deck() {
-        cards = new ArrayList<Card>();
+        cards = new ArrayList<>();
 
         // For each suit, create 13 cards and add it to the ArrayList cards.
         for (Suits suit : Suits.values()) {
-            for (int i = 1; i < 14; i++) {
-                cards.add(new Card(suit, i));
+            for (Ranks rank : Ranks.values()) {
+                cards.add(new Card(suit, rank));
             }
         }
     
@@ -52,14 +59,20 @@ public class Deck {
 
     // Output the deck of cards.
     public void printDeck() {
-        for (Card card: cards) {
+        for (Card card : cards) {
             System.out.println(card);
         }
     }
 
+    // Shuffle the deck using the Collections.shuffle() method.
+    public void shuffleDeck() {
+        Collections.shuffle(cards);
+    }
+
     public static void main(String[] args) {
-        // Create a new Deck object and output it.
+        // Create a new Deck object, shuffle it, and output it.
         Deck myDeck = new Deck();
+        myDeck.shuffleDeck();
         myDeck.printDeck();
     }
 }
