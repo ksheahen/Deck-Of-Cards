@@ -5,6 +5,9 @@
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 // Suit constants
 enum Suits {
@@ -69,10 +72,28 @@ public class Deck {
         Collections.shuffle(cards);
     }
 
+
     public static void main(String[] args) {
         // Create a new Deck object, shuffle it, and output it.
-        Deck myDeck = new Deck();
-        myDeck.shuffleDeck();
-        myDeck.printDeck();
+        // Deck myDeck = new Deck();
+        // myDeck.shuffleDeck();
+        // myDeck.printDeck();
+
+        Frame frame = new Frame("Card Game");
+        Label label = new Label("Hello World");
+
+        label.setAlignment(Label.CENTER);
+        frame.add(label);
+        frame.setSize(300, 300);
+
+        frame.setVisible(true);
+
+        // Exits the program upon closing the window.
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
     }
 }
