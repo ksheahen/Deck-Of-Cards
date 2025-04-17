@@ -3,11 +3,10 @@
 // No jokers
 // Optional: shuffling and i think the second option was a game
 
+import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 // Suit constants
 enum Suits {
@@ -75,17 +74,32 @@ public class Deck {
 
     public static void main(String[] args) {
         // Create a new Deck object, shuffle it, and output it.
-        // Deck myDeck = new Deck();
-        // myDeck.shuffleDeck();
-        // myDeck.printDeck();
-
+        Deck myDeck = new Deck();
         Frame frame = new Frame("Card Game");
-        Label label = new Label("Hello World");
+        Button shuffleBtn = new Button("Shuffle");
+        Label label = new Label();
+        final List list = new List(52);
 
-        label.setAlignment(Label.CENTER);
+        shuffleBtn.setBounds(100, 270, 100, 30);
+        list.setBounds(100, 100, 150, 150);
+        label.setBounds(100, 310, 150, 20);
+
+        for (int i = 0; i < 52; i++) {
+                list.add(myDeck.cards.get(i).toString());
+        }
+
+        shuffleBtn.addActionListener((ActionEvent e) -> {
+            int randomNum = (int)(Math.random() * 52);
+            String randomCard = myDeck.cards.get(randomNum).toString();
+            label.setText("Card: " + randomCard);
+        });
+
+        frame.add(shuffleBtn);
+        frame.add(list);
         frame.add(label);
-        frame.setSize(300, 300);
 
+        frame.setSize(800, 800);
+        frame.setLayout(null);
         frame.setVisible(true);
 
         // Exits the program upon closing the window.
@@ -95,5 +109,7 @@ public class Deck {
                 System.exit(0);
             }
         });
+
+
     }
 }
