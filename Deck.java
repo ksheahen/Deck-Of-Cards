@@ -41,6 +41,7 @@ class Card {
     }
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 public class Deck {
 
@@ -73,31 +74,59 @@ public class Deck {
 
 
     public static void main(String[] args) {
-        // Create a new Deck object, shuffle it, and output it.
+
+        // Variables / Componenents
         Deck myDeck = new Deck();
         Frame frame = new Frame("Card Game");
+        Button randomBtn = new Button("Random");
         Button shuffleBtn = new Button("Shuffle");
+        Button clearBtn = new Button("Clear");
         Label label = new Label();
         final List list = new List(52);
+        List output = new List(52);
 
-        shuffleBtn.setBounds(100, 270, 100, 30);
+        // Set bounds for components.
+        randomBtn.setBounds(100, 270, 100, 30);
+        shuffleBtn.setBounds(300, 270, 100, 30);
+        clearBtn.setBounds(500, 270, 100, 30);
         list.setBounds(100, 100, 150, 150);
-        label.setBounds(100, 310, 150, 20);
+        output.setBounds(500, 100, 150, 150);
+        label.setBounds(100, 310, 200, 30);
 
+        // Add the cards to the list.
         for (int i = 0; i < 52; i++) {
                 list.add(myDeck.cards.get(i).toString());
         }
 
-        shuffleBtn.addActionListener((ActionEvent e) -> {
+        // When clicking the shuffle button, a random card will be choosen.
+        randomBtn.addActionListener((ActionEvent e) -> {
             int randomNum = (int)(Math.random() * 52);
             String randomCard = myDeck.cards.get(randomNum).toString();
             label.setText("Card: " + randomCard);
         });
 
-        frame.add(shuffleBtn);
+        // Shuffle the deck of cards.
+        shuffleBtn.addActionListener((ActionEvent e) -> {
+            myDeck.shuffleDeck();
+            for (int i = 0; i < 52; i++) {
+                output.add(myDeck.cards.get(i).toString());
+            }
+        });
+
+        // Clear the list of shuffled cards.
+        clearBtn.addActionListener((ActionEvent e) -> {
+            output.clear();
+        });
+
+        // Add components (?) to the frame.
+        frame.add(randomBtn);
         frame.add(list);
         frame.add(label);
+        frame.add(output);
+        frame.add(shuffleBtn);
+        frame.add(clearBtn);
 
+        // Set frame properties.
         frame.setSize(800, 800);
         frame.setLayout(null);
         frame.setVisible(true);
